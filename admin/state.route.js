@@ -111,4 +111,35 @@ stateRoute.route
     (err);
     });
 });
+
+stateRoute.get('/debug', async (req, res) => {
+  try {
+    const dbName = mongoose.connection.name;
+    const collections = await mongoose.connection.db.listCollections().toArray();
+    const colNames = collections.map(c => c.name);
+
+    const stats = {};
+    for (const name of colNames) {
+      try {
+        const col = mongoose.connection.db.collection(name);
+        stats[name] = {
+          count: await col.countDocuments(),
+          sample: await col.findOne() // may be null
+        };
+      } catch(e) {
+        stats[name] = { error: e.message };
+      }
+    }
+
+    // Also check State model specifically
+    const stateCount = await State.countDocuments().catch(e => `err:${e.message}`);
+    const stateSample = await State.findOne().lean().catch(e => `err:${e.message}`);
+
+    return res.json({ dbName, colNames, stats, stateCount, stateSample });
+  } catch (err) {
+    console.error('debug error', err);
+    return res.status(500).json({ error: err.message });
+  }
+});
+
 module.exports = stateRoute;
