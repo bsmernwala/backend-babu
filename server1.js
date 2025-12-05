@@ -38,37 +38,13 @@ app.use("/emailactivation",emailactivationRoute);
 app.use("/sales", saleRoute);
 app.use("/inventory", inventoryRoute);
 app.use("/productimages", express.static(path.join(__dirname, "product/productimages")));
-
- require('dotenv').config(); // <---- ADD THIS
+require('dotenv').config(); // <---- ADD THIS
  
-// mongoose.connect(config.URL).then(() => {      
-//       console.log('Database is connected '+config.URL) },
-//     err => { console.log('Can not connect to the database'+ err)}
-//   );
+mongoose.connect(config.URL).then(() => {      
+      console.log('Database is connected '+config.URL) },
+    err => { console.log('Can not connect to the database'+ err)}
+  );
   
-//   app.listen(PORT, function(){
-//     console.log('Server is running on Port:',PORT);
-//   });
-
-let isconnected = false;
-
-async function connectToMongoDB() {
-
-  try {
-    await mongoose.connect(process.env.MONGODB_URI , { useNewUrlParser: true, useUnifiedTopology: true } );
-    isconnected = true;
-    console.log('Connected to MongoDB');
-  } catch (error) {
-    console.error('Error connecting to MongoDB:', error);
-  }
-    
-}
-
-app.use(async (req, res, next) => {
-  if (!isconnected) {
-    await connectToMongoDB();
-  }
-  next();
-}); 
-
-module.exports = app;
+  app.listen(PORT, function(){
+    console.log('Server is running on Port:',PORT);
+  });
