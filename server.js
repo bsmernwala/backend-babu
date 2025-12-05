@@ -7,7 +7,7 @@ const bodyParser = require('body-parser');
 const PORT = 9191;
 const cors = require('cors');
 const mongoose = require('mongoose');
-const config = require('./DB.js');
+const config1 = require('./DB.js');
 const stateRoute = require('./admin/state.route.js');
 const cityRoute = require('./admin/city.route.js');
 const productCatgRoute = require('./admin/productcatg.route.js');
@@ -55,7 +55,7 @@ let isconnected = false;
 async function connectToMongoDB() {
 
   try {
-    await mongoose.connect(process.env.MONGODB_URL, {
+    await mongoose.connect(config1.URL, {
   dbName: 'ecommerceDB', // forces this DB
   useNewUrlParser: true,
   useUnifiedTopology: true
