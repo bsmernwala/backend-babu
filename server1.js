@@ -1,3 +1,4 @@
+//server1.js
 const express = require('express');
 const app = express();
 
@@ -41,8 +42,8 @@ app.use("/inventory", inventoryRoute);
 app.use("/productimages", express.static(path.join(__dirname, "product/productimages")));
 
  
-mongoose.connect(config1.URL).then(() => {      
-      console.log('Database is connected '+config1.URL) },
+mongoose.connect(process.env.MONGODB_URL).then(() => {      
+      console.log('Database is connected '+process.env.MONGODB_URL) },
     err => { console.log('Can not connect to the database'+ err)}
   );
   
