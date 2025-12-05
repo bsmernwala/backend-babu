@@ -36,7 +36,7 @@ stateRoute.route
 stateRoute.route
 ('/test').get((req, res)=> {
    
-  res.send("state route is working");
+  res.send("state route is working fine");
   res.end();
 });       
 //update state
