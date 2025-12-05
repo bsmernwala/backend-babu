@@ -54,7 +54,7 @@ let isconnected = false;
 async function connectToMongoDB() {
 
   try {
-    await mongoose.connect(process.env.MONGODB_URI || config.URL, { useNewUrlParser: true, useUnifiedTopology: true } );
+    await mongoose.connect(process.env.MONGODB_URI , { useNewUrlParser: true, useUnifiedTopology: true } );
     isconnected = true;
     console.log('Connected to MongoDB');
   } catch (error) {
