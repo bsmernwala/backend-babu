@@ -1,6 +1,7 @@
 
 const express = require('express');
 const stateRoute = express.Router(); 
+const mongoose = require('mongoose');
 
 var State = require('./state.model'); 
 
