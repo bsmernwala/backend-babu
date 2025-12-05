@@ -36,8 +36,17 @@ stateRoute.route
 stateRoute.route
 ('/test').get((req, res)=> {
    
-  res.send("state route is working fine");
-  res.end();
+  //res.send("state route is working fine");
+  //res.end();
+  State.find()
+    .then(state => {      
+      res.send(state);
+      res.end();
+    }).catch(err => {
+    res.send
+    (err);
+    res.end();
+    });
 });       
 //update state
 stateRoute.route
