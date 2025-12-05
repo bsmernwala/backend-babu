@@ -20,6 +20,7 @@ const venderRoute=require("./vender/vender.route.js");
 const saleRoute = require("./vender/sales.route.js");
 const inventoryRoute = require('./product/inventory.route.js');
 const path = require("path"); 
+require('dotenv').config(); // <---- ADD THIS
 
 app.use(cors()); 
 app.use(bodyParser.urlencoded({extended: true}));
@@ -38,13 +39,34 @@ app.use("/emailactivation",emailactivationRoute);
 app.use("/sales", saleRoute);
 app.use("/inventory", inventoryRoute);
 app.use("/productimages", express.static(path.join(__dirname, "product/productimages")));
-require('dotenv').config(); // <---- ADD THIS
+
  
-mongoose.connect(config.URL).then(() => {      
-      console.log('Database is connected '+config.URL) },
+mongoose.connect(process.env.MONGODB_URL).then(() => {      
+      console.log('Database is connected '+process.env.MONGODB_URL) },
     err => { console.log('Can not connect to the database'+ err)}
   );
   
   app.listen(PORT, function(){
     console.log('Server is running on Port:',PORT);
   });
+
+
+// require('dotenv').config();   // IMPORTANT!
+
+// const express = require('express');
+// const app = express();
+
+// const bodyParser = require('body-parser');
+// const PORT = 9191;
+// const cors = require('cors');
+// const mongoose = require('mongoose');
+
+// console.log("MONGO URI:", process.env.MONGODB_URI); // for debugging
+
+// mongoose.connect(process.env.MONGODB_URL)
+//   .then(() => console.log('Database is connected'))
+//   .catch(err => console.log('Can not connect to the database: ' + err));
+
+// app.listen(PORT, () => {
+//   console.log('Server is running on Port:', PORT);
+// });
