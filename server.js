@@ -55,7 +55,7 @@ let isconnected = false;
 async function connectToMongoDB() {
 
   try {
-    await mongoose.connect(process.env.MONGODB_URI, {
+    await mongoose.connect(process.env.MONGODB_URL, {
   dbName: 'ecommerceDB', // forces this DB
   useNewUrlParser: true,
   useUnifiedTopology: true
