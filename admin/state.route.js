@@ -32,6 +32,12 @@ stateRoute.route
     res.send
     (err);
     });
+});
+stateRoute.route
+('/test').get((req, res)=> {
+   
+  res.send("state route is working");
+  res.end();
 });       
 //update state
 stateRoute.route
