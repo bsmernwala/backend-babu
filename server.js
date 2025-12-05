@@ -81,6 +81,20 @@
 
 //server.js for vercel deployment
 // server.js (for Vercel)
+
+const cors = require('cors');
+
+// allow only your local dev origin
+app.use(cors({
+  origin: 'http://localhost:3000',
+  methods: ['GET','POST','PUT','DELETE','OPTIONS'],
+  allowedHeaders: ['Content-Type','Authorization'],
+  credentials: true // set true only if you need cookies/auth
+}));
+
+// If you want to allow any origin (dev/test only), use:
+// app.use(cors());
+
 require('dotenv').config(); // safe to call on Vercel, it will no-op if no .env
 
 const express = require('express');
@@ -105,7 +119,7 @@ const emailactivationRoute = require('./emailactivation.js');
 const saleRoute = require('./vender/sales.route.js');
 const inventoryRoute = require('./product/inventory.route.js');
 
-app.use(cors());
+//app.use(cors());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
