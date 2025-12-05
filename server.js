@@ -40,7 +40,7 @@ app.use("/inventory", inventoryRoute);
 app.use("/productimages", express.static(path.join(__dirname, "product/productimages")));
 
  require('dotenv').config(); // <---- ADD THIS
- 
+
 // mongoose.connect(config.URL).then(() => {      
 //       console.log('Database is connected '+config.URL) },
 //     err => { console.log('Can not connect to the database'+ err)}
@@ -55,7 +55,7 @@ let isconnected = false;
 async function connectToMongoDB() {
 
   try {
-    await mongoose.connect(process.env.MONGODB_URI , { useNewUrlParser: true, useUnifiedTopology: true } );
+    await mongoose.connect(config.URL, { useNewUrlParser: true, useUnifiedTopology: true } );
     isconnected = true;
     console.log('Connected to MongoDB');
   } catch (error) {
